@@ -1,6 +1,6 @@
-### Dus Example
+# Dus Example
 
-# Building:
+### Building:
 make sure you have installed `build-essential`, `pkg-config`, `libglib2.0-dev`
 ``` bash
 sudo apt install libglib2.0-dev libglib2.0-dev libglib2.0-dev
