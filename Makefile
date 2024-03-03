@@ -1,7 +1,9 @@
-.PHONY: server
+.PHONY: create_build_dir server
 
-all: server
+all: create_build_dir server
+
+create_build_dir:
+	if [ ! -d build ]; then mkdir build; fi
 
 server:
-	mkdir build
-	gcc -o build/server dbus-server.c `pkg-config --libs --cflags gio-2.0`
+	gcc -o build/server src/dbus-server.c `pkg-config --libs --cflags gio-2.0`
