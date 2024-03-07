@@ -10,3 +10,15 @@ For building all example, try run:
 make all
 ```
 All example was placed in `build` directory
+
+### Test Dbus Server with `dbus`
+
+For get property
+``` bash
+gdbus call -e -d com.gialuong.TestServer -o / -m org.freedesktop.DBus.Properties.Get com.gialuong.TestInterface status
+```
+
+For set property
+``` bash
+gdbus call -e -d com.gialuong.TestServer -o / -m org.freedesktop.DBus.Properties.Set com.gialuong.TestInterface status "<uint32 10>"
+```
