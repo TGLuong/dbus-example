@@ -11,7 +11,7 @@ make all
 ```
 All example was placed in `build` directory
 
-### Test Dbus Server with `dbus`
+### Test Dbus Server with `gdbus`
 
 For get property
 ``` bash
