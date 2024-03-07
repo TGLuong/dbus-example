@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+static int status = 0;
+
 GDBusNodeInfo *introspection_data = NULL;
 
 const gchar introspection_xml[] = 
@@ -13,6 +15,7 @@ const gchar introspection_xml[] =
             "<arg type='u' name='height' direction='in'/>"
             "<arg type='u' name='area' direction='out'/>"
         "</method>"
+        "<property name='status' type='u' access='readwrite'/>"
     "</interface>"
 "</node>";
 
@@ -48,7 +51,17 @@ handle_get_property(GDBusConnection *connection,
                     GError **error,
                     gpointer user_data)
 {
-    return NULL;
+    printf("Get Property: sender %s; object_path %s; interface_name %s; property_name %s\n", 
+                                                                                    sender, 
+                                                                                    object_path, 
+                                                                                    interface_name, 
+                                                                                    property_name);
+    
+    GVariant *retval = NULL;
+
+    retval = g_variant_new_int32(status);
+    
+    return retval;
 }
 
 static gboolean 
@@ -61,7 +74,17 @@ handle_set_property(GDBusConnection *connection,
                     GError **error, 
                     gpointer user_data)
 {
+    printf("Set Property: sender %s; object_path %s; interface_name %s; property_name: %s, value %s\n", sender,
+                                                                                                        object_path,
+                                                                                                        interface_name,
+                                                                                                        property_name,
+                                                                                                        g_variant_print(value, TRUE));
+    if (g_strcmp0(property_name, "status") == 0) 
+    {
+        status = g_variant_get_uint32(value);
+    }
 
+    return TRUE;
 }
 
 static const GDBusInterfaceVTable interface_vtable = 
